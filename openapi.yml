@@ -30,6 +30,7 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ListItemResponseDTO'
+                    
     post:
       tags: ['form']
       summary: Create Form
@@ -123,6 +124,9 @@ components:
           format: uuid
         name:
           type: string
+      example: 
+        id: '3fa85f64-5717-4562-b3fc-2c963f66afa'
+        name: 'Simple form'
     FormResponseDTO:
       type: object
       properties:
@@ -272,3 +276,8 @@ components:
           type: integer
         current:
           type: integer
+      example: 
+        size: 3
+        start: 1
+        limit: 10
+        current: 1
