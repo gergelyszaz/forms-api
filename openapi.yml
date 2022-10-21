@@ -1,0 +1,274 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/gergelyszaz/Forms/1.0.0
+info:
+  version: '1.0.0'
+  title: Generic Form Creation Project
+tags:
+  - name: 'form'
+  - name: 'data'
+paths:
+  /forms:
+    get:
+      summary: List Forms
+      description: List Forms
+      operationId: ListForms
+      tags: ['form']
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _metadata:
+                    $ref: '#/components/schemas/Pagination'
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ListItemResponseDTO'
+    post:
+      tags: ['form']
+      summary: Create Form
+      requestBody:
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/FormRequestDTO'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedResponseDTO'
+  /forms/{id}:
+    get:
+      tags: ['form']
+      summary: Get Form
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormResponseDTO'
+    put:
+      tags: ['form']
+      summary: Update Form
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/FormRequestDTO'
+      responses:
+        '200':
+          description: OK          
+    delete:
+      tags: ['form']
+      summary: Delete Form
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+        
+
+  /ping:
+    get:
+      summary: Server heartbeat operation
+      description: >-
+        This operation shows how to override the global security defined above,
+        as we want to open it up for all users.
+      security: []
+      responses:
+        '200':
+          description: OK
+
+components:
+  schemas:
+    CreatedResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+    ListItemResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    FormResponseDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        schema:
+          type: object
+        uiSchema:
+          type: object
+      example: {
+        'id': '3fa85f64-5717-4562-b3fc-2c963f66afa',
+        'name': 'Simple form',
+        'schema': {
+          'type': 'object',
+          'properties': {
+            'name': {
+              'type': 'string',
+              'minLength': 3,
+              'description': 'Please enter your name'
+            },
+            'vegetarian': {
+              'type': 'boolean'
+            },
+            'birthDate': {
+              'type': 'string',
+              'format': 'date'
+            },
+            'nationality': {
+              'type': 'string',
+              'enum': [
+                'DE',
+                'IT',
+                'JP',
+                'US',
+                'RU',
+                'Other'
+              ]
+            },
+            'personalData': {
+              'type': 'object',
+              'properties': {
+                'age': {
+                  'type': 'integer',
+                  'description': 'Please enter your age.'
+                },
+                'height': {
+                  'type': 'number'
+                },
+                'drivingSkill': {
+                  'type': 'number',
+                  'maximum': 10,
+                  'minimum': 1,
+                  'default': 7
+                }
+              },
+              'required': [
+                'age',
+                'height'
+              ]
+            },
+            'occupation': {
+              'type': 'string'
+            },
+            'postalCode': {
+              'type': 'string',
+              'maxLength': 5
+            }
+          },
+          'required': [
+            'occupation',
+            'nationality'
+          ]
+        },
+        'uiSchema': {
+          'type': 'VerticalLayout',
+          'elements': [
+            {
+              'type': 'HorizontalLayout',
+              'elements': [
+                {
+                  'type': 'Control',
+                  'scope': '#/properties/name'
+                },
+                {
+                  'type': 'Control',
+                  'scope': '#/properties/personalData/properties/age'
+                },
+                {
+                  'type': 'Control',
+                  'scope': '#/properties/birthDate'
+                }
+              ]
+            },
+            {
+              'type': 'Label',
+              'text': 'Additional Information'
+            },
+            {
+              'type': 'HorizontalLayout',
+              'elements': [
+                {
+                  'type': 'Control',
+                  'scope': '#/properties/personalData/properties/height'
+                },
+                {
+                  'type': 'Control',
+                  'scope': '#/properties/nationality'
+                },
+                {
+                  'type': 'Control',
+                  'scope': '#/properties/occupation',
+                  'suggestion': [
+                    'Accountant',
+                    'Engineer',
+                    'Freelancer',
+                    'Journalism',
+                    'Physician',
+                    'Student',
+                    'Teacher',
+                    'Other'
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        
+      }
+    FormRequestDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          type: string
+    Pagination:
+      type: object
+      properties:
+        size:
+          type: integer
+        start:
+          type: integer
+        limit:
+          type: integer
+        current:
+          type: integer
