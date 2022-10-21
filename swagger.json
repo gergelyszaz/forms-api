@@ -13,6 +13,7 @@
       "get" : {
         "summary" : "List Forms",
         "description" : "List Forms",
+        "operationId" : "ListForms",
         "responses" : {
           "200" : {
             "description" : "OK",
