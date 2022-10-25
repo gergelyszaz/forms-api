@@ -95,6 +95,93 @@ paths:
       responses:
         '200':
           description: OK
+  
+  
+  /data:
+    get:
+      summary: List Data
+      description: List data
+      operationId: ListData
+      tags: ['data']
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _metadata:
+                    $ref: '#/components/schemas/Pagination'
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ListItemResponseDTO'
+                    
+    post:
+      tags: ['data']
+      summary: Create Form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataRequestDTO'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedResponseDTO'
+  /data/{id}:
+    get:
+      tags: ['data']
+      summary: Get Data
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataResponseDTO'
+    put:
+      tags: ['data']
+      summary: Update Data
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/DataRequestDTO'
+      responses:
+        '200':
+          description: OK          
+    delete:
+      tags: ['data']
+      summary: Delete Data
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
         
 
   /ping:
@@ -127,6 +214,23 @@ components:
       example: 
         id: '3fa85f64-5717-4562-b3fc-2c963f66afa'
         name: 'Simple form'
+    Pagination:
+      type: object
+      properties:
+        size:
+          type: integer
+        start:
+          type: integer
+        limit:
+          type: integer
+        current:
+          type: integer
+      example: 
+        size: 3
+        start: 1
+        limit: 10
+        current: 1
+        
     FormResponseDTO:
       type: object
       properties:
@@ -264,20 +368,28 @@ components:
         name:
           type: string
         content:
-          type: string
-    Pagination:
+          type: object
+    DataResponseDTO:
       type: object
       properties:
-        size:
-          type: integer
-        start:
-          type: integer
-        limit:
-          type: integer
-        current:
-          type: integer
-      example: 
-        size: 3
-        start: 1
-        limit: 10
-        current: 1
+        formId:
+          type: string
+        content:
+          type: object
+      example:
+        formId: 3fa85f64-5717-4562-b3fc-2c963f66afa
+        content:
+          name: John Doe
+          vegetarian: false
+          birthDate: '1985-06-02'
+          personalData:
+            age: 34
+          postalCode: '12345'
+        
+    DataRequestDTO:
+      type: object
+      properties:
+        schemaId:
+          type: string
+        content:
+          type: object
