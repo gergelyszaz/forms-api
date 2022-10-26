@@ -9,15 +9,21 @@ tags:
   - name: 'form'
   - name: 'data'
 paths:
+#-------------------------------
+# Form CRUD
+#-------------------------------
   /forms:
     get:
       tags: ['form']
       summary: List Forms
       description: List Forms
       operationId: ListForms
+      
+      parameters:
+        - $ref: '#/components/parameters/PagingQueryParameter'
       responses:
         '200': 
-          $ref: '#/components/responses/ListResponse' 
+          $ref: '#/components/responses/ListResponse'
                     
     post:
       tags: ['form']
@@ -72,7 +78,9 @@ paths:
         '200':
           description: OK
   
-  
+#-------------------------------
+# Data CRUD
+#-------------------------------
   /data:
     get:
       summary: List Data
@@ -150,14 +158,34 @@ paths:
           description: OK
 
 components:
-  parameters:
+#-------------------------------
+  parameters: # Parameters
+#-------------------------------
+# Path Parameters
+#-------------------------------
+  
     IdPathParameter:
       in: path
       name: id
       required: true
       schema:
         $ref: '#/components/schemas/UUID'
-  responses:
+        
+#-------------------------------
+# Query Parameters
+#-------------------------------
+    
+    PagingQueryParameter:
+      in: query
+      name: page
+      schema:
+        type: object
+
+
+#-------------------------------
+  responses: # Responses
+#-------------------------------
+  
     ListResponse:
       description: OK
       content:
@@ -170,6 +198,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/CreatedResponseDTO'
+
+#-------------------------------
   schemas:
     UUID:
       type: string
