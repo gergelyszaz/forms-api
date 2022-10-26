@@ -33,6 +33,7 @@ paths:
     post:
       tags: ['form']
       summary: Create Form
+      operationId: CreateForm
       requestBody:
         content:
           application/json:
@@ -49,6 +50,7 @@ paths:
     get:
       tags: ['form']
       summary: Get Form
+      operationId: GetForm
       parameters:
         - in: path
           name: id
@@ -66,6 +68,7 @@ paths:
     put:
       tags: ['form']
       summary: Update Form
+      operationId: UpdateForm
       parameters:
         - in: path
           name: id
@@ -84,6 +87,7 @@ paths:
     delete:
       tags: ['form']
       summary: Delete Form
+      operationId: DeleteForms
       parameters:
         - in: path
           name: id
@@ -119,7 +123,8 @@ paths:
                     
     post:
       tags: ['data']
-      summary: Create Form
+      summary: Create Data
+      operationId: CreateData
       requestBody:
         content:
           application/json:
@@ -136,6 +141,7 @@ paths:
     get:
       tags: ['data']
       summary: Get Data
+      operationId: GetData
       parameters:
         - in: path
           name: id
@@ -153,6 +159,7 @@ paths:
     put:
       tags: ['data']
       summary: Update Data
+      operationId: UpdateData
       parameters:
         - in: path
           name: id
@@ -171,6 +178,7 @@ paths:
     delete:
       tags: ['data']
       summary: Delete Data
+      operationId: DeleteData
       parameters:
         - in: path
           name: id
@@ -186,6 +194,7 @@ paths:
   /ping:
     get:
       summary: Server heartbeat operation
+      operationId: Ping
       description: >-
         This operation shows how to override the global security defined above,
         as we want to open it up for all users.
