@@ -37,12 +37,7 @@ paths:
       summary: Get Form
       operationId: GetForm
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/IdPathParameter'
       responses:
         '200':
           description: OK
@@ -50,17 +45,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FormResponseDTO'
+              examples:
+                simpleForm:
+                  $ref: '#/components/examples/FormResponseDTOExample'
     put:
       tags: ['form']
       summary: Update Form
       operationId: UpdateForm
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/IdPathParameter'
       requestBody:
         content:
           application/json:
@@ -74,12 +67,7 @@ paths:
       summary: Delete Form
       operationId: DeleteForms
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/IdPathParameter'
       responses:
         '200':
           description: OK
@@ -113,12 +101,7 @@ paths:
       summary: Get Data
       operationId: GetData
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/IdPathParameter'
       responses:
         '200':
           description: OK
@@ -126,17 +109,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataResponseDTO'
+              examples:
+                SimpleExample:
+                  $ref: '#/components/examples/DataResponseDTOExample'
     put:
       tags: ['data']
       summary: Update Data
       operationId: UpdateData
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/IdPathParameter'
       requestBody:
         content:
           application/json:
@@ -150,12 +131,7 @@ paths:
       summary: Delete Data
       operationId: DeleteData
       parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/IdPathParameter'
       responses:
         '200':
           description: OK
@@ -174,6 +150,13 @@ paths:
           description: OK
 
 components:
+  parameters:
+    IdPathParameter:
+      in: path
+      name: id
+      required: true
+      schema:
+        $ref: '#/components/schemas/UUID'
   responses:
     ListResponse:
       description: OK
@@ -188,12 +171,16 @@ components:
           schema:
             $ref: '#/components/schemas/CreatedResponseDTO'
   schemas:
+    UUID:
+      type: string
+      format: uuid
+      example: 
+        3fa85f64-5717-4562-b3fc-2c963f66afa1
     CreatedResponseDTO:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUID'
       required: 
         - id
     ListResponseDTO:
@@ -209,15 +196,14 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUID'
         name:
           type: string
       required: 
         - id
         - name
       example: 
-        id: '3fa85f64-5717-4562-b3fc-2c963f66afa'
+        id: '3fa85f64-5717-4562-b3fc-2c963f66afa1'
         name: 'Simple form'
     Pagination:
       type: object
@@ -250,133 +236,14 @@ components:
         - uiSchema
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUID'
         name:
           type: string
         schema:
           type: object
         uiSchema:
           type: object
-      example: {
-        'id': '3fa85f64-5717-4562-b3fc-2c963f66afa',
-        'name': 'Simple form',
-        'schema': {
-          'type': 'object',
-          'properties': {
-            'name': {
-              'type': 'string',
-              'minLength': 3,
-              'description': 'Please enter your name'
-            },
-            'vegetarian': {
-              'type': 'boolean'
-            },
-            'birthDate': {
-              'type': 'string',
-              'format': 'date'
-            },
-            'nationality': {
-              'type': 'string',
-              'enum': [
-                'DE',
-                'IT',
-                'JP',
-                'US',
-                'RU',
-                'Other'
-              ]
-            },
-            'personalData': {
-              'type': 'object',
-              'properties': {
-                'age': {
-                  'type': 'integer',
-                  'description': 'Please enter your age.'
-                },
-                'height': {
-                  'type': 'number'
-                },
-                'drivingSkill': {
-                  'type': 'number',
-                  'maximum': 10,
-                  'minimum': 1,
-                  'default': 7
-                }
-              },
-              'required': [
-                'age',
-                'height'
-              ]
-            },
-            'occupation': {
-              'type': 'string'
-            },
-            'postalCode': {
-              'type': 'string',
-              'maxLength': 5
-            }
-          },
-          'required': [
-            'occupation',
-            'nationality'
-          ]
-        },
-        'uiSchema': {
-          'type': 'VerticalLayout',
-          'elements': [
-            {
-              'type': 'HorizontalLayout',
-              'elements': [
-                {
-                  'type': 'Control',
-                  'scope': '#/properties/name'
-                },
-                {
-                  'type': 'Control',
-                  'scope': '#/properties/personalData/properties/age'
-                },
-                {
-                  'type': 'Control',
-                  'scope': '#/properties/birthDate'
-                }
-              ]
-            },
-            {
-              'type': 'Label',
-              'text': 'Additional Information'
-            },
-            {
-              'type': 'HorizontalLayout',
-              'elements': [
-                {
-                  'type': 'Control',
-                  'scope': '#/properties/personalData/properties/height'
-                },
-                {
-                  'type': 'Control',
-                  'scope': '#/properties/nationality'
-                },
-                {
-                  'type': 'Control',
-                  'scope': '#/properties/occupation',
-                  'suggestion': [
-                    'Accountant',
-                    'Engineer',
-                    'Freelancer',
-                    'Journalism',
-                    'Physician',
-                    'Student',
-                    'Teacher',
-                    'Other'
-                  ]
-                }
-              ]
-            }
-          ]
-        }
         
-      }
     FormRequestDTO:
       type: object
       properties:
@@ -393,26 +260,15 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUID'
         formId:
-          type: string
-          format: uuid
+          $ref: '#/components/schemas/UUID'
         content:
           type: object
       required: 
         - id
         - formId
         - content
-      example:
-        formId: 3fa85f64-5717-4562-b3fc-2c963f66afa
-        content:
-          name: John Doe
-          vegetarian: false
-          birthDate: '1985-06-02'
-          personalData:
-            age: 34
-          postalCode: '12345'
         
     DataRequestDTO:
       type: object
@@ -424,3 +280,93 @@ components:
       required:
         - formId
         - content
+  examples:
+    DataResponseDTOExample:
+      value:
+        formId: 3fa85f64-5717-4562-b3fc-2c963f66afa1
+        content:
+          name: John Doe
+          vegetarian: false
+          birthDate: '1985-06-02'
+          personalData:
+            age: 34
+          postalCode: '12345'
+    FormResponseDTOExample:
+      value: 
+        id: 3fa85f64-5717-4562-b3fc-2c963f66afa1
+        name: Simple form
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 3
+              description: Please enter your name
+            vegetarian:
+              type: boolean
+            birthDate:
+              type: string
+              format: date
+            nationality:
+              type: string
+              enum:
+                - DE
+                - IT
+                - JP
+                - US
+                - RU
+                - Other
+            personalData:
+              type: object
+              properties:
+                age:
+                  type: integer
+                  description: Please enter your age.
+                height:
+                  type: number
+                drivingSkill:
+                  type: number
+                  maximum: 10
+                  minimum: 1
+                  default: 7
+              required:
+                - age
+                - height
+            occupation:
+              type: string
+            postalCode:
+              type: string
+              maxLength: 5
+          required:
+            - occupation
+            - nationality
+        uiSchema:
+          type: VerticalLayout
+          elements:
+            - type: HorizontalLayout
+              elements:
+                - type: Control
+                  scope: '#/properties/name'
+                - type: Control
+                  scope: '#/properties/personalData/properties/age'
+                - type: Control
+                  scope: '#/properties/birthDate'
+            - type: Label
+              text: Additional Information
+            - type: HorizontalLayout
+              elements:
+                - type: Control
+                  scope: '#/properties/personalData/properties/height'
+                - type: Control
+                  scope: '#/properties/nationality'
+                - type: Control
+                  scope: '#/properties/occupation'
+                  suggestion:
+                    - Accountant
+                    - Engineer
+                    - Freelancer
+                    - Journalism
+                    - Physician
+                    - Student
+                    - Teacher
+                    - Other
