@@ -16,7 +16,8 @@ paths:
       description: List Forms
       operationId: ListForms
       responses:
-        '200': { $ref: '#/components/responses/ListResponse' }
+        '200': 
+          $ref: '#/components/responses/ListResponse' 
                     
     post:
       tags: ['form']
@@ -28,7 +29,8 @@ paths:
             schema:
                 $ref: '#/components/schemas/FormRequestDTO'
       responses:
-        '200': { $ref: '#/components/responses/CreatedResponse' }
+        '200':
+          $ref: '#/components/responses/CreatedResponse'
   /forms/{id}:
     get:
       tags: ['form']
@@ -103,12 +105,8 @@ paths:
             schema:
               $ref: '#/components/schemas/DataRequestDTO'
       responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreatedResponseDTO'
+        '200': 
+          $ref: '#/components/responses/CreatedResponse'
   /data/{id}:
     get:
       tags: ['data']
