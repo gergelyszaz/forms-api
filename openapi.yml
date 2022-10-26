@@ -18,7 +18,6 @@ paths:
       summary: List Forms
       description: List Forms
       operationId: ListForms
-      
       parameters:
         - $ref: '#/components/parameters/PagingQueryParameter'
       responses:
