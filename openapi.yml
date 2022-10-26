@@ -175,7 +175,7 @@ components:
       name: id
       required: true
       schema:
-        $ref: '#/components/schemas/UUID'
+        $ref: '#/components/schemas/UUIDType'
         
 #-------------------------------------------------------------------------------
 # Query Parameters
@@ -228,9 +228,9 @@ components:
 # Generic 
 #-------------------------------------------------------------------------------
     
-    UUID:
+    UUIDType:
       type: string
-      format: uuid
+      format: 
       example: 
         3fa85f64-5717-4562-b3fc-2c963f66afa1
     SortByType:
@@ -270,7 +270,7 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/UUID'
+          $ref: '#/components/schemas/UUIDType'
       required: 
         - id
     ListResponseDTO:
@@ -286,7 +286,7 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/UUID'
+          $ref: '#/components/schemas/UUIDType'
         name:
           type: string
       required: 
@@ -326,7 +326,7 @@ components:
         - uiSchema
       properties:
         id:
-          $ref: '#/components/schemas/UUID'
+          $ref: '#/components/schemas/UUIDType'
         name:
           type: string
         schema:
@@ -338,9 +338,9 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/UUID'
+          $ref: '#/components/schemas/UUIDType'
         formId:
-          $ref: '#/components/schemas/UUID'
+          $ref: '#/components/schemas/UUIDType'
         content:
           type: object
       required: 
