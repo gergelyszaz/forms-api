@@ -202,7 +202,7 @@ components:
       schema:
         type: array
         items:
-          type: string
+          $ref: '#/components/schemas/SortByType'
 
 
 #-------------------------------------------------------------------------------
@@ -233,6 +233,9 @@ components:
       format: uuid
       example: 
         3fa85f64-5717-4562-b3fc-2c963f66afa1
+    SortByType:
+      type: string
+      pattern: '\s+[ASC|DESC]'
         
 #-------------------------------------------------------------------------------
 # Request DTO
