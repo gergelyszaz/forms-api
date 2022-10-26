@@ -1,7 +1,6 @@
 openapi: 3.0.0
 servers:
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
+  - description: JSON Forms API
     url: https://virtserver.swaggerhub.com/gergelyszaz/Forms/1.0.0
 info:
   version: '1.0.0'
@@ -203,6 +202,8 @@ components:
         id:
           type: string
           format: uuid
+      required: 
+        - id
     ListItemResponseDTO:
       type: object
       properties:
@@ -211,6 +212,9 @@ components:
           format: uuid
         name:
           type: string
+      required: 
+        - id
+        - name
       example: 
         id: '3fa85f64-5717-4562-b3fc-2c963f66afa'
         name: 'Simple form'
@@ -225,6 +229,11 @@ components:
           type: integer
         current:
           type: integer
+      required: 
+        - size
+        - start
+        - limit
+        - current
       example: 
         size: 3
         start: 1
@@ -233,6 +242,11 @@ components:
         
     FormResponseDTO:
       type: object
+      required: 
+        - id
+        - name
+        - schema
+        - uiSchema
       properties:
         id:
           type: string
@@ -369,13 +383,26 @@ components:
           type: string
         content:
           type: object
+      required:
+        - name
+        - content
+        
+          
     DataResponseDTO:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
         formId:
           type: string
+          format: uuid
         content:
           type: object
+      required: 
+        - id
+        - formId
+        - content
       example:
         formId: 3fa85f64-5717-4562-b3fc-2c963f66afa
         content:
@@ -389,7 +416,10 @@ components:
     DataRequestDTO:
       type: object
       properties:
-        schemaId:
+        formId:
           type: string
         content:
           type: object
+      required:
+        - formId
+        - content
