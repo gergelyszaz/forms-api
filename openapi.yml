@@ -19,7 +19,10 @@ paths:
       description: List Forms
       operationId: ListForms
       parameters:
-        - $ref: '#/components/parameters/PagingQueryParameter'
+        - $ref: '#/components/parameters/LimitQueryParameter'
+        - $ref: '#/components/parameters/OffsetQueryParameter'
+        - $ref: '#/components/parameters/SortQueryParameter'
+        - $ref: '#/components/parameters/FilterQueryParameter'
       responses:
         '200': 
           $ref: '#/components/responses/ListResponse'
@@ -178,11 +181,28 @@ components:
 # Query Parameters
 #-------------------------------------------------------------------------------
     
-    PagingQueryParameter:
+    LimitQueryParameter:
       in: query
-      name: page
+      name: limit
+      schema:
+        type: integer
+    OffsetQueryParameter:
+      in: query
+      name: offset
+      schema:
+        type: integer
+    FilterQueryParameter:
+      in: query
+      name: filterBy
       schema:
         type: object
+    SortQueryParameter:
+      in: query
+      name: sortBy
+      schema:
+        type: array
+        items:
+          type: string
 
 
 #-------------------------------------------------------------------------------
@@ -207,11 +227,13 @@ components:
 #-------------------------------------------------------------------------------
 # Generic Data Types
 #-------------------------------------------------------------------------------
+    
     UUID:
       type: string
       format: uuid
       example: 
         3fa85f64-5717-4562-b3fc-2c963f66afa1
+        
 #-------------------------------------------------------------------------------
 # Request DTO
 #-------------------------------------------------------------------------------
