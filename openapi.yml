@@ -144,6 +144,9 @@ paths:
           description: OK
         
 
+#-------------------------------
+# System
+#-------------------------------
   /ping:
     get:
       summary: Server heartbeat operation
@@ -156,12 +159,13 @@ paths:
         '200':
           description: OK
 
+#-------------------------------------------------------------------------------
 components:
-#-------------------------------
+#-------------------------------------------------------------------------------
   parameters: # Parameters
-#-------------------------------
+#-------------------------------------------------------------------------------
 # Path Parameters
-#-------------------------------
+#-------------------------------------------------------------------------------
   
     IdPathParameter:
       in: path
@@ -170,9 +174,9 @@ components:
       schema:
         $ref: '#/components/schemas/UUID'
         
-#-------------------------------
+#-------------------------------------------------------------------------------
 # Query Parameters
-#-------------------------------
+#-------------------------------------------------------------------------------
     
     PagingQueryParameter:
       in: query
@@ -181,9 +185,9 @@ components:
         type: object
 
 
-#-------------------------------
+#-------------------------------------------------------------------------------
   responses: # Responses
-#-------------------------------
+#-------------------------------------------------------------------------------
   
     ListResponse:
       description: OK
@@ -198,13 +202,45 @@ components:
           schema:
             $ref: '#/components/schemas/CreatedResponseDTO'
 
-#-------------------------------
+#-------------------------------------------------------------------------------
   schemas:
+#-------------------------------------------------------------------------------
+# Generic Data Types
+#-------------------------------------------------------------------------------
     UUID:
       type: string
       format: uuid
       example: 
         3fa85f64-5717-4562-b3fc-2c963f66afa1
+#-------------------------------------------------------------------------------
+# Request DTO
+#-------------------------------------------------------------------------------
+    
+    FormRequestDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        content:
+          type: object
+      required:
+        - name
+        - content
+        
+    DataRequestDTO:
+      type: object
+      properties:
+        formId:
+          type: string
+        content:
+          type: object
+      required:
+        - formId
+        - content
+
+#-------------------------------------------------------------------------------
+# Response DTO
+#-------------------------------------------------------------------------------
     CreatedResponseDTO:
       type: object
       properties:
@@ -216,7 +252,7 @@ components:
       type: object
       properties:
         _metadata:
-          $ref: '#/components/schemas/Pagination'
+          $ref: '#/components/schemas/PaginationResponeDTO'
         items:
           type: array
           items:
@@ -234,7 +270,7 @@ components:
       example: 
         id: '3fa85f64-5717-4562-b3fc-2c963f66afa1'
         name: 'Simple form'
-    Pagination:
+    PaginationResponeDTO:
       type: object
       properties:
         size:
@@ -272,19 +308,7 @@ components:
           type: object
         uiSchema:
           type: object
-        
-    FormRequestDTO:
-      type: object
-      properties:
-        name:
-          type: string
-        content:
-          type: object
-      required:
-        - name
-        - content
-        
-          
+
     DataResponseDTO:
       type: object
       properties:
@@ -299,16 +323,9 @@ components:
         - formId
         - content
         
-    DataRequestDTO:
-      type: object
-      properties:
-        formId:
-          type: string
-        content:
-          type: object
-      required:
-        - formId
-        - content
+#-------------------------------------------------------------------------------
+# Examples
+#-------------------------------------------------------------------------------
   examples:
     DataResponseDTOExample:
       value:
