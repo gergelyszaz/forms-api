@@ -212,7 +212,7 @@ components:
           schema:
             $ref: '#/components/schemas/ListResponseDTO'
           examples:
-          Multiple:
+            Multiple:
               value: 
                 _metadata:
                   total: 3
