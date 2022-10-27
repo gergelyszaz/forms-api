@@ -70,7 +70,7 @@ paths:
     delete:
       tags: ['form']
       summary: Delete Form
-      operationId: DeleteForm
+      operationId: DeleteForms
       parameters:
         - $ref: '#/components/parameters/IdPathParameter'
       responses:
@@ -181,6 +181,8 @@ components:
     FilteringAndSortingQueryParameter:
       in: query
       name: query
+      style: form
+      explode: true
       schema:
         type: object
         properties:
