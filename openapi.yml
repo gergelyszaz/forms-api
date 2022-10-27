@@ -212,6 +212,19 @@ components:
           schema:
             $ref: '#/components/schemas/ListResponseDTO'
           examples:
+          Multiple:
+              value: 
+                _metadata:
+                  total: 3
+                  size: 10
+                  page: 3
+                items:
+                  - id: 3fa85f64-5717-4562-b3fc-2c963f66afa1
+                    name: "Simple form 1"
+                  - id: 3fa85f64-5717-4562-b3fc-2c963f66afa2
+                    name: "Simple form 2"
+                  - id: 3fa85f64-5717-4562-b3fc-2c963f66afa3
+                    name: "Simple form 3"
             None:
               value: 
                 _metadata:
@@ -228,19 +241,6 @@ components:
                 items:
                   - id: 3fa85f64-5717-4562-b3fc-2c963f66afa1
                     name: "Simple form"
-            Multiple:
-              value: 
-                _metadata:
-                  total: 3
-                  size: 10
-                  page: 3
-                items:
-                  - id: 3fa85f64-5717-4562-b3fc-2c963f66afa1
-                    name: "Simple form 1"
-                  - id: 3fa85f64-5717-4562-b3fc-2c963f66afa2
-                    name: "Simple form 2"
-                  - id: 3fa85f64-5717-4562-b3fc-2c963f66afa3
-                    name: "Simple form 3"
     CreatedResponse:
       description: OK
       content:
