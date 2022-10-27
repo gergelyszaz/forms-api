@@ -91,7 +91,6 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/ListResponse'
-                    
     post:
       tags: ['data']
       summary: Create Data
@@ -185,9 +184,9 @@ components:
       schema:
         type: object
         properties:
-          offset:
+          page:
             type: integer
-          limit:
+          size:
             type: integer
           filterBy:
             type: object
@@ -212,6 +211,36 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ListResponseDTO'
+          examples:
+            None:
+              value: 
+                _metadata:
+                  total: 0
+                  size: 10
+                  page: 1
+                items: []
+            Single:
+              value: 
+                _metadata:
+                  total: 1
+                  size: 10
+                  page: 1
+                items:
+                  - id: 3fa85f64-5717-4562-b3fc-2c963f66afa1
+                    name: "Simple form"
+            Multiple:
+              value: 
+                _metadata:
+                  total: 3
+                  size: 10
+                  page: 3
+                items:
+                  - id: 3fa85f64-5717-4562-b3fc-2c963f66afa1
+                    name: "Simple form 1"
+                  - id: 3fa85f64-5717-4562-b3fc-2c963f66afa2
+                    name: "Simple form 2"
+                  - id: 3fa85f64-5717-4562-b3fc-2c963f66afa3
+                    name: "Simple form 3"
     CreatedResponse:
       description: OK
       content:
@@ -295,24 +324,20 @@ components:
     PaginationResponeDTO:
       type: object
       properties:
+        total:
+          type: integer
         size:
           type: integer
-        offset:
-          type: integer
-        limit:
-          type: integer
-        current:
+        page:
           type: integer
       required: 
+        - total
         - size
-        - start
-        - limit
-        - current
+        - page
       example: 
-        size: 3
-        start: 1
-        limit: 10
-        current: 1
+        total: 3
+        size: 10
+        page: 0
         
     FormResponseDTO:
       type: object
