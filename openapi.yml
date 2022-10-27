@@ -19,7 +19,10 @@ paths:
       description: List Forms
       operationId: ListForms
       parameters:
-        - $ref: '#/components/parameters/FilteringAndSortingQueryParameter'
+        - $ref: '#/components/parameters/PageQueryParameter'
+        - $ref: '#/components/parameters/SizeQueryParameter'
+        - $ref: '#/components/parameters/filterByQueryParameter'
+        - $ref: '#/components/parameters/sortByQueryParameter'
       responses:
         '200': 
           $ref: '#/components/responses/ListResponse'
@@ -87,7 +90,10 @@ paths:
       description: List data
       operationId: ListData
       parameters:
-        - $ref: '#/components/parameters/FilteringAndSortingQueryParameter'
+        - $ref: '#/components/parameters/PageQueryParameter'
+        - $ref: '#/components/parameters/SizeQueryParameter'
+        - $ref: '#/components/parameters/filterByQueryParameter'
+        - $ref: '#/components/parameters/sortByQueryParameter'
       responses:
         '200':
           $ref: '#/components/responses/ListResponse'
@@ -178,30 +184,31 @@ components:
 #-------------------------------------------------------------------------------
 # Query Parameters
 #-------------------------------------------------------------------------------
-    FilteringAndSortingQueryParameter:
+    PageQueryParameter:
       in: query
-      name: query
-      style: form
-      explode: true
+      name: page
+      schema:
+        type: integer
+      
+    SizeQueryParameter:
+      in: query
+      name: size
+      schema:
+        type: integer
+    
+    filterByQueryParameter:
+      in: query
+      name: filterBy
       schema:
         type: object
-        properties:
-          page:
-            type: integer
-          size:
-            type: integer
-          filterBy:
-            type: object
-          sortBy:
-            type: array
-            items:
-              $ref: '#/components/schemas/SortByType'
-      examples:
-        FilterExample:
-          value:
-            filterBy:
-              formId:
-                3fa85f64-5717-4562-b3fc-2c963f66afa1
+      
+    sortByQueryParameter:
+      in: query
+      name: sortBy
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/SortByType'
 
 #-------------------------------------------------------------------------------
   responses: # Responses
