@@ -19,10 +19,7 @@ paths:
       description: List Forms
       operationId: ListForms
       parameters:
-        - $ref: '#/components/parameters/LimitQueryParameter'
-        - $ref: '#/components/parameters/OffsetQueryParameter'
-        - $ref: '#/components/parameters/SortQueryParameter'
-        - $ref: '#/components/parameters/FilterQueryParameter'
+        - $ref: '#/components/parameters/FilteringAndSortingQueryParameter'
       responses:
         '200': 
           $ref: '#/components/responses/ListResponse'
@@ -90,10 +87,7 @@ paths:
       description: List data
       operationId: ListData
       parameters:
-        - $ref: '#/components/parameters/LimitQueryParameter'
-        - $ref: '#/components/parameters/OffsetQueryParameter'
-        - $ref: '#/components/parameters/SortQueryParameter'
-        - $ref: '#/components/parameters/FilterQueryParameter'
+        - $ref: '#/components/parameters/FilteringAndSortingQueryParameter'
       responses:
         '200':
           $ref: '#/components/responses/ListResponse'
@@ -185,30 +179,22 @@ components:
 #-------------------------------------------------------------------------------
 # Query Parameters
 #-------------------------------------------------------------------------------
-    
-    LimitQueryParameter:
+    FilteringAndSortingQueryParameter:
       in: query
-      name: limit
-      schema:
-        type: integer
-    OffsetQueryParameter:
-      in: query
-      name: offset
-      schema:
-        type: integer
-    FilterQueryParameter:
-      in: query
-      name: filterBy
+      name: query
       schema:
         type: object
-    SortQueryParameter:
-      in: query
-      name: sortBy
-      schema:
-        type: array
-        items:
-          $ref: '#/components/schemas/SortByType'
-
+        properties:
+          offset:
+            type: integer
+          limit:
+            type: integer
+          filterBy:
+            type: object
+          sortBy:
+            type: array
+            items:
+              $ref: '#/components/schemas/SortByType'
 
 #-------------------------------------------------------------------------------
   responses: # Responses
