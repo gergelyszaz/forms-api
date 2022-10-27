@@ -70,7 +70,7 @@ paths:
     delete:
       tags: ['form']
       summary: Delete Form
-      operationId: DeleteForms
+      operationId: DeleteForm
       parameters:
         - $ref: '#/components/parameters/IdPathParameter'
       responses:
